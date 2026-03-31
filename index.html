@@ -10,203 +10,507 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     :root {
-      --red: #FF4757;
-      --blue: #2A9BF4;
-      --dark: #0d0d1a;
-      --gray: #6b7280;
+      --blue: #1B6FD8;
+      --blue-light: #3b8ee8;
+      --blue-dim: rgba(27,111,216,.1);
+      --accent: #FF5A36;
+      --dark: #12192b;
+      --text: #1a2235;
+      --muted: #64748b;
+      --bg: #f5f7fb;
+      --bg2: #ffffff;
+      --border: rgba(27,111,216,.13);
+      --card-bg: #ffffff;
+      --shadow: 0 8px 40px rgba(27,111,216,.09);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; color: var(--dark); overflow-x: hidden; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
+    /* BARRE DRAPEAU BURKINA FASO */
+    .bf-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 5px;
+      background: linear-gradient(to right, #EF0107 0% 45%, #FCD116 45% 55%, #009A00 55% 100%);
+    }
+
+    /* NAV */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 5px; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px 6%;
-      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
+      background: rgba(245,247,251,.94); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(27,111,216,.1);
     }
-    .logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
-    .logo img { width: 36px; height: 36px; border-radius: 9px; }
-    .logo-name { font-size: 20px; font-weight: 900; background: linear-gradient(135deg, var(--red), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .nav-dl { background: var(--red); color: #fff; text-decoration: none; padding: 9px 22px; border-radius: 50px; font-weight: 600; font-size: 14px; transition: opacity .2s; }
-    .nav-dl:hover { opacity: .85; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon {
+      width: 40px; height: 40px; background: var(--dark); border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-icon img { width: 28px; height: 28px; object-fit: contain; display: block; }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .logo-name { font-size: 19px; font-weight: 900; color: var(--dark); }
+    .logo-slogan { font-size: 10px; font-weight: 500; color: var(--muted); letter-spacing: .1px; white-space: nowrap; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 14px; transition: color .2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-dl { background: var(--blue); color: #fff; text-decoration: none; padding: 9px 22px; border-radius: 50px; font-weight: 600; font-size: 14px; transition: background .2s; }
+    .nav-dl:hover { background: var(--blue-light); }
+    @media(max-width:740px) { .nav-links { display: none; } }
 
+    /* HERO */
     .hero {
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 100px 6% 60px;
-      background: linear-gradient(160deg, #fff 55%, #eef6ff 100%);
+      text-align: center; padding: 120px 6% 90px; position: relative; overflow: hidden;
+      background: linear-gradient(160deg, #fff 40%, #edf3ff 100%);
     }
-    .hero-inner { max-width: 680px; }
-    .hero-logo { width: 90px; height: 90px; background: var(--dark); border-radius: 24px; margin: 0 auto 28px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(42,155,244,.4); }
-    .hero-logo img { width: 56px; height: 56px; object-fit: contain; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: rgba(42,155,244,.1); color: var(--blue); font-size: 13px; font-weight: 600; padding: 6px 16px; border-radius: 50px; margin-bottom: 24px; }
-    .hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
-    .hero h1 .r { color: var(--red); }
-    .hero h1 .b { color: var(--blue); }
-    .hero p { font-size: 17px; color: var(--gray); line-height: 1.7; margin-bottom: 34px; }
+    .hero::before {
+      content: ''; position: absolute; top: -10%; right: -10%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(27,111,216,.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 720px; position: relative; z-index: 1; }
+    .hero-logo {
+      width: 88px; height: 88px; background: var(--dark); border-radius: 22px;
+      margin: 0 auto 28px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 0 8px rgba(27,111,216,.07), 0 20px 60px rgba(27,111,216,.22);
+    }
+    .hero-logo img { width: 60px; height: 60px; object-fit: contain; display: block; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--blue-dim); color: var(--blue);
+      font-size: 12px; font-weight: 600; padding: 6px 18px; border-radius: 50px;
+      border: 1px solid rgba(27,111,216,.18); margin-bottom: 26px; letter-spacing: .4px;
+    }
+    .bf-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(252,209,22,.13); color: #6b4c00;
+      font-size: 13px; font-weight: 700; padding: 7px 20px; border-radius: 50px;
+      border: 1px solid rgba(239,1,7,.18); margin-bottom: 28px; letter-spacing: .2px;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.6rem); font-weight: 900; line-height: 1.1; margin-bottom: 20px; color: var(--dark); }
+    .hero h1 .accent { color: var(--blue); }
+    .hero p { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 38px; max-width: 540px; margin-left: auto; margin-right: auto; }
     .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .btn-r { background: var(--red); color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 700; font-size: 15px; }
-    .btn-b { background: var(--blue); color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 700; font-size: 15px; }
-    .btn-r:hover, .btn-b:hover { opacity: .85; }
+    .btn-solid { background: var(--blue); color: #fff; text-decoration: none; padding: 15px 32px; border-radius: 50px; font-weight: 700; font-size: 15px; box-shadow: 0 8px 28px rgba(27,111,216,.32); transition: all .2s; }
+    .btn-solid:hover { background: var(--blue-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--dark); text-decoration: none; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 15px; border: 1.5px solid rgba(27,111,216,.3); transition: all .2s; }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
-    .apps { padding: 80px 6%; background: #fff; }
-    .section-label { text-align: center; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 10px; }
-    .section-title { text-align: center; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; }
-    .apps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 48px auto 0; }
-    @media(max-width:620px) { .apps-grid { grid-template-columns: 1fr; } nav .logo-name { font-size:18px; } }
-    .app-card { border-radius: 20px; padding: 36px 30px; }
-    .app-card.red { background: linear-gradient(135deg, #fff5f6, #ffe8ea); border: 1px solid rgba(255,71,87,.15); }
-    .app-card.blue { background: linear-gradient(135deg, #f0f8ff, #ddeffc); border: 1px solid rgba(42,155,244,.15); }
-    .app-icon { font-size: 36px; margin-bottom: 14px; }
-    .app-name { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-    .app-card.red .app-name { color: var(--red); }
-    .app-card.blue .app-name { color: var(--blue); }
-    .app-desc { color: var(--gray); font-size: 14px; line-height: 1.65; margin-bottom: 20px; }
-    .app-feats { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .app-feats li { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
-    .app-feats li i { font-size: 10px; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .app-card.red .app-feats li i { background: rgba(255,71,87,.12); color: var(--red); }
-    .app-card.blue .app-feats li i { background: rgba(42,155,244,.12); color: var(--blue); }
+    /* SECTIONS */
+    .sec { padding: 100px 6%; background: var(--bg2); }
+    .sec-alt { background: var(--bg); }
+    .tag { display: inline-flex; align-items: center; gap: 7px; background: var(--blue-dim); color: var(--blue); font-size: 11px; font-weight: 700; padding: 5px 14px; border-radius: 50px; border: 1px solid rgba(27,111,216,.18); margin-bottom: 18px; letter-spacing: .8px; text-transform: uppercase; }
 
-    .how { padding: 80px 6%; background: #f8fafc; }
-    .steps { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 48px; }
-    .step { text-align: center; max-width: 190px; }
-    .step-num { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--red), var(--blue)); color: #fff; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-    .step h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-    .step p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+    /* SPLIT LAYOUT */
+    .split { display: flex; gap: 72px; align-items: center; }
+    .split.rev { flex-direction: row-reverse; }
+    .split-text { flex: 1; }
+    .split-visual { flex: 1; display: flex; justify-content: center; }
+    @media(max-width:820px) { .split, .split.rev { flex-direction: column; gap: 48px; } }
+    .split-text h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: 14px; }
+    .split-text > p { font-size: 16px; color: var(--muted); line-height: 1.75; }
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 20px; margin-top: 36px; }
+    .feat-list li { display: flex; gap: 16px; align-items: flex-start; }
+    .feat-icon { width: 46px; height: 46px; border-radius: 13px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .feat-icon.a { background: rgba(255,90,54,.1); color: var(--accent); }
+    .feat-icon.b { background: var(--blue-dim); color: var(--blue); }
+    .feat-text h4 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .feat-text p { font-size: 13px; color: var(--muted); line-height: 1.62; }
 
-    .cta { padding: 80px 6%; background: var(--dark); text-align: center; color: #fff; }
-    .cta h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 12px; }
-    .cta p { color: rgba(255,255,255,.6); font-size: 16px; margin-bottom: 36px; }
-    .cta-boxes { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-    .cta-box { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 28px 32px; min-width: 200px; }
-    .cta-box-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
-    .cta-box-sub { font-size: 12px; color: rgba(255,255,255,.45); margin-bottom: 16px; }
-    .cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity .2s; }
-    .cta-btn:hover { opacity: .85; }
-    .cta-btn.red { background: var(--red); color: #fff; }
-    .cta-btn.blue { background: var(--blue); color: #fff; }
+    /* PHONE MOCKUP */
+    .phone-wrap { width: 248px; background: var(--dark); border-radius: 42px; border: 1.5px solid rgba(27,111,216,.18); box-shadow: 0 0 0 8px rgba(27,111,216,.05), 0 40px 80px rgba(18,25,43,.18); overflow: hidden; }
+    .phone-status { display: flex; justify-content: space-between; align-items: center; padding: 7px 14px 4px; background: var(--dark); }
+    .phone-status-time { font-size: 9px; font-weight: 700; color: rgba(255,255,255,.75); }
+    .phone-status-icons { display: flex; gap: 5px; align-items: center; color: rgba(255,255,255,.6); font-size: 8px; }
+    .phone-nav { display: flex; justify-content: center; align-items: center; gap: 28px; padding: 12px 10px 20px; background: #070f1c; }
+    .phone-nav-btn { display: flex; align-items: center; justify-content: center; color: rgba(200,215,255,.55); }
+    .nav-back { width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-right: 11px solid rgba(200,215,255,.55); }
+    .nav-home { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(200,215,255,.55); }
+    .nav-recent { width: 15px; height: 15px; border-radius: 3px; border: 2px solid rgba(200,215,255,.55); }
+    .phone-top { padding: 12px 0 6px; display: flex; justify-content: center; background: var(--dark); }
+    .phone-notch { width: 58px; height: 6px; background: #1e2d4a; border-radius: 3px; }
+    .phone-screen { padding: 0 12px 22px; }
+    .phone-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 2px 10px; }
+    .phone-header-logo { display: flex; align-items: center; gap: 5px; }
+    .phone-header-logo img { width: 20px; height: 20px; border-radius: 5px; }
+    .phone-header-name { font-size: 11px; font-weight: 800; color: #fff; }
+    .phone-banner { border-radius: 12px; padding: 13px 12px; margin-bottom: 10px; font-size: 11px; font-weight: 700; color: #fff; }
+    .phone-banner.shop { background: linear-gradient(135deg, #b91c1c, #ef4444); }
+    .phone-banner.liv { background: linear-gradient(135deg, #1256a8, var(--blue)); }
+    .phone-banner p { opacity: .75; font-size: 9px; font-weight: 500; margin-top: 2px; }
+    .phone-cats { display: flex; gap: 5px; margin-bottom: 10px; overflow: hidden; }
+    .phone-cat { background: rgba(27,111,216,.15); color: #7ab8f5; font-size: 8px; font-weight: 600; padding: 4px 8px; border-radius: 20px; white-space: nowrap; }
+    .phone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .phone-item { background: #1c2b42; border-radius: 9px; padding: 8px; }
+    .phone-item-img { height: 34px; border-radius: 5px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .phone-item-name { font-size: 8px; font-weight: 600; color: #e0eaff; }
+    .phone-item-price { font-size: 8px; color: #7ab8f5; font-weight: 700; }
+    .phone-orders { display: flex; flex-direction: column; gap: 7px; }
+    .phone-order { background: #1c2b42; border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 8px; }
+    .p-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dg { background: #22c55e; } .do { background: #f97316; } .db { background: var(--blue); }
+    .phone-order-info { flex: 1; }
+    .phone-order-name { font-size: 9px; font-weight: 600; color: #e0eaff; }
+    .phone-order-sub { font-size: 8px; color: rgba(200,215,255,.45); }
+    .phone-order-amt { font-size: 9px; font-weight: 700; color: #7ab8f5; }
 
-    footer { padding: 26px 6%; background: #07070f; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .foot-logo { display: flex; align-items: center; gap: 8px; }
-    .foot-logo img { width: 28px; height: 28px; border-radius: 7px; }
-    .foot-logo span { color: rgba(255,255,255,.7); font-size: 15px; font-weight: 700; }
-    footer p { color: rgba(255,255,255,.3); font-size: 12px; }
+    /* HOW IT WORKS */
+    .steps-row { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 60px; }
+    .step { text-align: center; flex: 1; min-width: 160px; max-width: 210px; padding: 0 16px; position: relative; }
+    .step:not(:last-child)::after { content: ''; position: absolute; top: 23px; right: -16px; width: 32px; height: 1px; background: var(--border); }
+    @media(max-width:700px) { .step::after { display: none; } }
+    .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--blue-dim); border: 1.5px solid rgba(27,111,216,.3); color: var(--blue); font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+    .step h3 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 7px; }
+    .step p { font-size: 12px; color: var(--muted); line-height: 1.65; }
+
+    /* TESTIMONIALS */
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 56px; }
+    @media(max-width:820px) { .testi-grid { grid-template-columns: 1fr; } }
+    .testi-card { background: var(--bg); border: 1px solid rgba(27,111,216,.1); border-radius: 20px; padding: 28px 24px; transition: box-shadow .25s, transform .25s; }
+    .testi-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+    .testi-stars { color: #f59e0b; font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testi-quote { font-size: 14px; color: var(--muted); line-height: 1.72; margin-bottom: 22px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--blue-dim); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .testi-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+    .testi-role { font-size: 11px; color: var(--muted); }
+
+    /* CTA */
+    .cta-sec {
+      padding: 110px 6%; text-align: center;
+      background: linear-gradient(145deg, var(--dark) 0%, #1b2d50 100%);
+    }
+    .cta-sec h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 900; color: #fff; margin-bottom: 14px; }
+    .cta-sec > p { color: rgba(255,255,255,.55); font-size: 17px; margin-bottom: 52px; }
+    .cta-boxes { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
+    .cta-box { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 22px; padding: 34px 38px; min-width: 220px; text-align: center; transition: all .25s; }
+    .cta-box:hover { border-color: var(--blue); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(27,111,216,.2); }
+    .cta-box-icon { font-size: 40px; margin-bottom: 14px; }
+    .cta-box-name { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+    .cta-box-sub { font-size: 12px; color: rgba(255,255,255,.42); margin-bottom: 22px; }
+    .dl-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 50px; font-size: 14px; font-weight: 700; text-decoration: none; background: var(--blue); color: #fff; transition: background .2s; }
+    .dl-btn:hover { background: var(--blue-light); }
+
+    /* FOOTER */
+    footer { padding: 56px 6% 40px; background: #0c1220; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; border-top: 1px solid rgba(255,255,255,.05); }
+    @media(max-width:680px) { footer { grid-template-columns: 1fr; gap: 30px; } }
+    .foot-logo { display: flex; align-items: center; gap: 9px; margin-bottom: 14px; }
+    .foot-logo-icon { width: 34px; height: 34px; background: var(--dark); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .foot-logo-icon img { width: 22px; height: 22px; object-fit: contain; display: block; }
+    .foot-logo span { color: #fff; font-size: 18px; font-weight: 900; }
+    .foot-desc { color: rgba(255,255,255,.3); font-size: 13px; line-height: 1.7; }
+    .foot-col-title { color: rgba(255,255,255,.5); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 18px; }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .foot-links a { color: rgba(255,255,255,.35); font-size: 13px; text-decoration: none; transition: color .2s; }
+    .foot-links a:hover { color: #7ab8f5; }
+    .foot-bottom { padding: 18px 6%; background: #0c1220; border-top: 1px solid rgba(255,255,255,.04); text-align: center; }
+    .foot-bottom p { color: rgba(255,255,255,.18); font-size: 12px; }
   </style>
 </head>
 <body>
 
+  <!-- BARRE DRAPEAU -->
+  <div class="bf-bar"></div>
+
+  <!-- NAV -->
   <nav>
     <a href="#" class="logo">
-      <img src="raaga.png" alt="Raaga" />
-      <span class="logo-name">Raaga</span>
+      <div class="logo-icon"><img src="raaga.png" alt="Raaga" /></div>
+      <div class="logo-text">
+        <span class="logo-name">Raaga</span>
+        <span class="logo-slogan">Simplifiez vos courses, dominez votre journée</span>
+      </div>
     </a>
+    <ul class="nav-links">
+      <li><a href="#apps">Applications</a></li>
+      <li><a href="#comment">Comment ça marche</a></li>
+      <li><a href="#avis">Avis</a></li>
+    </ul>
     <a href="#cta" class="nav-dl"><i class="fas fa-download"></i> Télécharger</a>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
-      <div class="hero-logo">
-        <img src="raaga.png" alt="Raaga Logo" />
-      </div>
-      <div class="hero-badge">
-        <i class="fas fa-map-marker-alt"></i> Burkina Faso &middot; Commerce local
-      </div>
-      <h1>
-        <span class="r">Acheter</span>, vendre,<br/>
-        <span class="b">livrer</span> au Burkina.
-      </h1>
-      <p>Un écosystème mobile pour connecter vendeurs, acheteurs et livreurs à travers tout le Burkina Faso.</p>
+      <h1>Le commerce mobile<br/><span class="accent">au Burkina Faso.</span></h1>
+      <p>Raaga connecte vendeurs, acheteurs et livreurs dans un seul écosystème mobile. Achetez, vendez et livrez partout au Burkina Faso.</p>
       <div class="hero-btns">
-        <a href="#apps" class="btn-r"><i class="fas fa-store"></i> Raaga Marché</a>
-        <a href="#apps" class="btn-b"><i class="fas fa-motorcycle"></i> Raaga Livreur</a>
+        <a href="#apps" class="btn-solid"><i class="fas fa-store"></i> Découvrir Raaga</a>
+        <a href="#cta" class="btn-outline"><i class="fab fa-google-play"></i> Télécharger</a>
       </div>
     </div>
   </section>
 
-  <section class="apps" id="apps">
-    <p class="section-label">Les deux applications</p>
-    <h2 class="section-title">Un écosystème, deux apps</h2>
-    <div class="apps-grid">
-
-      <div class="app-card red">
-        <div class="app-icon">&#128722;</div>
-        <div class="app-name">Raaga</div>
-        <p class="app-desc">La marketplace burkinabè pour acheter et vendre facilement : produits, services, livestream et messagerie intégrée.</p>
-        <ul class="app-feats">
-          <li><i class="fas fa-check"></i> Catalogue produits &amp; services</li>
-          <li><i class="fas fa-check"></i> Paiement mobile (Orange/Moov)</li>
-          <li><i class="fas fa-check"></i> Live shopping &amp; chat vendeur</li>
-          <li><i class="fas fa-check"></i> Tableau de bord vendeur</li>
+  <!-- APP 1 : RAAGA MARCHÉ -->
+  <section class="sec sec-alt" id="apps">
+    <div class="split">
+      <div class="split-text">
+        <span class="tag"><i class="fas fa-store"></i> Marketplace</span>
+        <h2>Raaga — le marché<br/>dans votre poche</h2>
+        <p>Achetez et vendez des produits burkinabés en toute simplicité. Des milliers d'articles, des vendeurs vérifiés et un paiement 100 % mobile.</p>
+        <ul class="feat-list">
+          <li>
+            <div class="feat-icon a"><i class="fas fa-th-large"></i></div>
+            <div class="feat-text">
+              <h4>Catalogue riche</h4>
+              <p>Mode, électronique, alimentation, artisanat… 7 catégories pour tout trouver.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon a"><i class="fas fa-mobile-alt"></i></div>
+            <div class="feat-text">
+              <h4>Paiement Orange Money &amp; Moov</h4>
+              <p>Réglez en un clic avec votre mobile money, sans carte bancaire.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon a"><i class="fas fa-video"></i></div>
+            <div class="feat-text">
+              <h4>Live shopping</h4>
+              <p>Vendeurs en direct : posez vos questions et commandez en live.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon a"><i class="fas fa-chart-bar"></i></div>
+            <div class="feat-text">
+              <h4>Tableau de bord vendeur</h4>
+              <p>Suivez vos ventes, commandes et revenus en temps réel depuis l'app.</p>
+            </div>
+          </li>
         </ul>
       </div>
-
-      <div class="app-card blue">
-        <div class="app-icon">&#128757;</div>
-        <div class="app-name">Raaga Livreur</div>
-        <p class="app-desc">L'app dédiée aux livreurs : gérez vos commandes, suivez vos gains et livrez en temps réel à travers la ville.</p>
-        <ul class="app-feats">
-          <li><i class="fas fa-check"></i> Commandes en temps réel</li>
-          <li><i class="fas fa-check"></i> Suivi GPS des livraisons</li>
-          <li><i class="fas fa-check"></i> Historique &amp; statistiques</li>
-          <li><i class="fas fa-check"></i> Gains journaliers clairs</li>
-        </ul>
+      <div class="split-visual">
+        <div class="phone-wrap">
+          <div class="phone-top"><div class="phone-notch"></div></div>
+          <div class="phone-status">
+            <span class="phone-status-time">9:41</span>
+            <div class="phone-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></div>
+          </div>
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-header-logo"><img src="raaga.png" alt="" /><span class="phone-header-name">Raaga</span></div>
+              <i class="fas fa-bell" style="color:var(--muted);font-size:12px"></i>
+            </div>
+            <div class="phone-banner shop">🛒 Promo du jour<p>Jusqu'à -40 % sur la mode</p></div>
+            <div class="phone-cats">
+              <span class="phone-cat">Mode</span>
+              <span class="phone-cat">Électro</span>
+              <span class="phone-cat">Artisanat</span>
+              <span class="phone-cat">Aliments</span>
+            </div>
+            <div class="phone-grid">
+              <div class="phone-item"><div class="phone-item-img" style="background:rgba(255,71,87,.08)">👗</div><div class="phone-item-name">Robe</div><div class="phone-item-price">8 500 F</div></div>
+              <div class="phone-item"><div class="phone-item-img" style="background:rgba(42,155,244,.08)">📱</div><div class="phone-item-name">Smartphone</div><div class="phone-item-price">85 000 F</div></div>
+              <div class="phone-item"><div class="phone-item-img" style="background:rgba(252,211,77,.08)">🥭</div><div class="phone-item-name">Mangues</div><div class="phone-item-price">1 000 F</div></div>
+              <div class="phone-item"><div class="phone-item-img" style="background:rgba(34,197,94,.08)">🪑</div><div class="phone-item-name">Chaise</div><div class="phone-item-price">12 000 F</div></div>
+            </div>
+          </div>
+          <div class="phone-nav">
+            <div class="nav-back"></div>
+            <div class="nav-home"></div>
+            <div class="nav-recent"></div>
+          </div>
+        </div>
       </div>
-
     </div>
   </section>
 
-  <section class="how" id="comment">
-    <p class="section-label">Comment ça marche</p>
-    <h2 class="section-title">Simple comme bonjour</h2>
-    <div class="steps">
+  <!-- APP 2 : RAAGA LIVREUR -->
+  <section class="sec" id="livreur">
+    <div class="split rev">
+      <div class="split-text">
+        <span class="tag"><i class="fas fa-motorcycle"></i> Livraison</span>
+        <h2>Raaga Livreur —<br/>livrez, gagnez du temps</h2>
+        <p>Conçue pour les livreurs indépendants : acceptez des courses en un tap, naviguez vers chaque client et suivez vos revenus au fil de la journée.</p>
+        <ul class="feat-list">
+          <li>
+            <div class="feat-icon b"><i class="fas fa-bolt"></i></div>
+            <div class="feat-text">
+              <h4>Commandes en temps réel</h4>
+              <p>Recevez les nouvelles missions instantanément et acceptez-les en un tap.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon b"><i class="fas fa-wallet"></i></div>
+            <div class="feat-text">
+              <h4>Suivi des gains</h4>
+              <p>Revenus du jour, de la semaine et du mois consultables en un coup d'œil.</p>
+            </div>
+          </li>
+          <li>
+            <div class="feat-icon b"><i class="fas fa-history"></i></div>
+            <div class="feat-text">
+              <h4>Historique complet</h4>
+              <p>Chaque livraison archivée avec le nom du client.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="split-visual">
+        <div class="phone-wrap">
+          <div class="phone-top"><div class="phone-notch"></div></div>
+          <div class="phone-status">
+            <span class="phone-status-time">9:41</span>
+            <div class="phone-status-icons"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></div>
+          </div>
+          <div class="phone-screen">
+            <div class="phone-header">
+              <div class="phone-header-logo"><img src="raaga.png" alt="" /><span class="phone-header-name">Raaga Livreur</span></div>
+              <i class="fas fa-bell" style="color:var(--muted);font-size:12px"></i>
+            </div>
+            <div class="phone-banner liv">🏍️ 3 courses actives<p>Aujourd'hui : 12 500 FCFA gagnés</p></div>
+            <div class="phone-orders">
+              <div class="phone-order">
+                <div class="p-dot dg"></div>
+                <div class="phone-order-info"><div class="phone-order-name">Amadou Traoré</div><div class="phone-order-sub">Secteur 15, Ouaga</div></div>
+                <div class="phone-order-amt">2 500 F</div>
+              </div>
+              <div class="phone-order">
+                <div class="p-dot do"></div>
+                <div class="phone-order-info"><div class="phone-order-name">Fatimata Kaboré</div><div class="phone-order-sub">Zone du Bois, Ouaga</div></div>
+                <div class="phone-order-amt">3 000 F</div>
+              </div>
+              <div class="phone-order">
+                <div class="p-dot db"></div>
+                <div class="phone-order-info"><div class="phone-order-name">Ibrahim Sawadogo</div><div class="phone-order-sub">Pissy, Ouagadougou</div></div>
+                <div class="phone-order-amt">2 000 F</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-nav">
+            <div class="nav-back"></div>
+            <div class="nav-home"></div>
+            <div class="nav-recent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="sec sec-alt" id="comment">
+    <div style="text-align:center">
+      <span class="tag"><i class="fas fa-info-circle"></i> Fonctionnement</span>
+      <h2 style="font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:#fff;margin-bottom:10px">Simple comme bonjour</h2>
+      <p style="color:var(--muted);font-size:16px">De l'inscription à la livraison en 4 étapes.</p>
+    </div>
+    <div class="steps-row">
       <div class="step">
         <div class="step-num">1</div>
         <h3>Créez un compte</h3>
-        <p>Inscription gratuite en moins d'une minute avec votre numéro de téléphone.</p>
+        <p>Inscription gratuite avec votre numéro de téléphone en moins d'une minute.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h3>Parcourez ou vendez</h3>
-        <p>Explorez le catalogue ou publiez vos produits et services en quelques clics.</p>
+        <h3>Explorez ou publiez</h3>
+        <p>Parcourez le catalogue ou mettez vos produits en ligne instantanément.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Commandez</h3>
-        <p>Payez en ligne et un livreur Raaga prend en charge votre colis immédiatement.</p>
+        <h3>Commandez et payez</h3>
+        <p>Validez votre commande et réglez via Orange Money ou Moov Money.</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <h3>Livré chez vous</h3>
-        <p>Suivez votre livraison en direct et recevez votre commande a domicile.</p>
+        <p>Un livreur Raaga récupère votre colis et vous livre directement à domicile.</p>
       </div>
     </div>
   </section>
 
-  <section class="cta" id="cta">
+  <!-- TÉMOIGNAGES -->
+  <section class="sec" id="avis">
+    <div style="text-align:center">
+      <span class="tag"><i class="fas fa-star"></i> Témoignages</span>
+      <h2 style="font-size:clamp(1.7rem,3.5vw,2.5rem);font-weight:800;color:#fff">Ce qu'ils en disent</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">« Raaga m'a permis de tripler mes ventes en 2 mois. Je gère tout depuis mon téléphone, c'est incroyable ! »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩🏾</div>
+          <div>
+            <div class="testi-name">Aminata Sawadogo</div>
+            <div class="testi-role">Vendeuse de mode · Ouagadougou</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">« Je commande mes courses chaque semaine sur Raaga. Livré en 45 min, jamais déçu. Le top au Burkina ! »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨🏿</div>
+          <div>
+            <div class="testi-name">Issouf Kaboré</div>
+            <div class="testi-role">Acheteur régulier · Bobo-Dioulasso</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">« Avec Raaga Livreur, je gagne 35 000 FCFA par semaine. L'app est simple, les paiements sont rapides. »</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🧑🏿</div>
+          <div>
+            <div class="testi-name">Moussa Compaoré</div>
+            <div class="testi-role">Livreur indépendant · Ouagadougou</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-sec" id="cta">
+    <span class="tag" style="margin-bottom:22px"><i class="fas fa-download"></i> Disponible maintenant</span>
     <h2>Rejoignez l'écosystème Raaga</h2>
-    <p>Disponible sur Android. Téléchargez l'app qui vous correspond.</p>
+    <p>Téléchargez l'app qui vous correspond, c'est gratuit.</p>
     <div class="cta-boxes">
       <div class="cta-box">
+        <div class="cta-box-icon">🛒</div>
         <div class="cta-box-name">Raaga</div>
-        <div class="cta-box-sub">Pour acheteurs &amp; vendeurs</div>
-        <a href="#" class="cta-btn red"><i class="fab fa-google-play"></i> Google Play</a>
+        <div class="cta-box-sub">Pour les acheteurs &amp; vendeurs</div>
+        <a href="#" class="dl-btn"><i class="fab fa-google-play"></i> Google Play</a>
       </div>
       <div class="cta-box">
+        <div class="cta-box-icon">🏍️</div>
         <div class="cta-box-name">Raaga Livreur</div>
-        <div class="cta-box-sub">Pour les livreurs</div>
-        <a href="#" class="cta-btn blue"><i class="fab fa-google-play"></i> Google Play</a>
+        <div class="cta-box-sub">Pour les livreurs indépendants</div>
+        <a href="#" class="dl-btn"><i class="fab fa-google-play"></i> Google Play</a>
       </div>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    <div class="foot-logo">
-      <img src="raaga.png" alt="Raaga" />
-      <span>Raaga</span>
+    <div>
+      <div class="foot-logo">
+        <div class="foot-logo-icon"><img src="raaga.png" alt="Raaga" /></div>
+        <span>Raaga</span>
+      </div>
+      <p class="foot-desc">L'écosystème du commerce mobile burkinabè. Achetez, vendez et livrez partout au Burkina Faso.</p>
     </div>
-    <p>© 2026 Raaga · Burkina Faso</p>
+    <div>
+      <div class="foot-col-title">Applications</div>
+      <ul class="foot-links">
+        <li><a href="#apps">Raaga Marché</a></li>
+        <li><a href="#livreur">Raaga Livreur</a></li>
+        <li><a href="#cta">Télécharger</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-col-title">Navigation</div>
+      <ul class="foot-links">
+        <li><a href="#comment">Comment ça marche</a></li>
+        <li><a href="#avis">Avis clients</a></li>
+      </ul>
+    </div>
   </footer>
+  <div class="foot-bottom">
+    <p>© 2026 Raaga · Burkina Faso · Tous droits réservés</p>
+  </div>
 
 </body>
 </html>

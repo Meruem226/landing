@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Raaga – L'écosystème du commerce mobile en Afrique</title>
   <meta name="description" content="Easy Shop & Raaga Livreur – La marketplace africaine et son réseau de livraison. Achetez, vendez, livrez en toute simplicité." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d0d1a'/><path d='M28 52c0 0 4-4 8-4s6 3 10 3 6-3 10-3 8 4 8 4' stroke='%232A9BF4' stroke-width='4' stroke-linecap='round' fill='none'/><path d='M22 46l10 12M78 46l-10 12' stroke='%232A9BF4' stroke-width='3.5' stroke-linecap='round' fill='none'/><path d='M32 58l6 4h24l6-4' stroke='%232A9BF4' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -51,7 +52,25 @@
     }
 
     .nav-logo {
-      font-size: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 38px;
+      height: 38px;
+      background: #0d0d1a;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-text {
+      font-size: 22px;
       font-weight: 900;
       background: linear-gradient(135deg, var(--shop-primary), var(--liv-primary));
       -webkit-background-clip: text;
@@ -130,6 +149,25 @@
     }
 
     .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+    .hero-icon {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(42,155,244,0.3);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      box-shadow: 0 0 60px rgba(42,155,244,0.2);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 40px rgba(42,155,244,0.15); }
+      50% { box-shadow: 0 0 80px rgba(42,155,244,0.35); }
+    }
 
     .hero-badge {
       display: inline-flex;
@@ -999,7 +1037,18 @@
 
   <!-- NAVBAR -->
   <nav>
-    <div class="nav-logo">Raaga</div>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 30 C14 22 22 18 30 22 C34 24 36 26 40 26 C44 26 46 24 50 22 C58 18 66 22 72 30" stroke="#2A9BF4" stroke-width="3.5" stroke-linecap="round" fill="none" transform="translate(-8,0)"/>
+          <path d="M14 26 L22 42" stroke="#2A9BF4" stroke-width="3" stroke-linecap="round"/>
+          <path d="M50 26 L42 42" stroke="#2A9BF4" stroke-width="3" stroke-linecap="round"/>
+          <path d="M22 42 L28 46 L36 46 L42 42" stroke="#2A9BF4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M28 46 L28 50 M36 46 L36 50" stroke="#2A9BF4" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Raaga</span>
+    </a>
     <ul class="nav-links">
       <li><a href="#shop">Easy Shop</a></li>
       <li><a href="#livreur">Raaga Livreur</a></li>
@@ -1011,6 +1060,21 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
+      <!-- Icône officielle Raaga -->
+      <div class="hero-icon">
+        <svg width="52" height="52" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Corps du handshake -->
+          <path d="M6 32 C10 24 18 19 26 23 C30 25 32 28 36 28 C40 28 42 25 46 23 C54 19 62 24 66 32" stroke="#2A9BF4" stroke-width="3.5" stroke-linecap="round" fill="none" transform="translate(-3,0)"/>
+          <!-- Bras gauche -->
+          <path d="M10 28 L20 44" stroke="#2A9BF4" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- Bras droit -->
+          <path d="M54 28 L44 44" stroke="#2A9BF4" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- Mains jointes -->
+          <path d="M20 44 L26 49 L38 49 L44 44" stroke="#2A9BF4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Doigts -->
+          <path d="M26 49 L26 54 M32 49 L32 54 M38 49 L38 54" stroke="#1976D2" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
       <div class="hero-badge">
         <i class="fas fa-globe-africa"></i>
         <span>Fait pour l'Afrique</span> · Marché francophone
@@ -1497,7 +1561,17 @@
   <footer>
     <div class="footer-grid">
       <div>
-        <div class="footer-brand-name">Raaga</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <div style="width:36px;height:36px;background:#0d0d1a;border:1px solid rgba(42,155,244,0.3);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 32 C10 24 18 19 26 23 C30 25 32 28 36 28 C40 28 42 25 46 23 C54 19 62 24 66 32" stroke="#2A9BF4" stroke-width="4" stroke-linecap="round" fill="none" transform="translate(-3,0)"/>
+              <path d="M10 28 L20 44" stroke="#2A9BF4" stroke-width="4" stroke-linecap="round"/>
+              <path d="M54 28 L44 44" stroke="#2A9BF4" stroke-width="4" stroke-linecap="round"/>
+              <path d="M20 44 L26 49 L38 49 L44 44" stroke="#2A9BF4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="footer-brand-name">Raaga</div>
+        </div>
         <p class="footer-desc">L'écosystème du commerce mobile en Afrique francophone. Achetez, vendez, livrez en toute simplicité.</p>
       </div>
       <div>

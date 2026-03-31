@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raaga – L'écosystème du commerce mobile en Afrique</title>
+  <meta name="description" content="Easy Shop & Raaga Livreur – La marketplace africaine et son réseau de livraison. Achetez, vendez, livrez en toute simplicité." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --shop-primary: #FF4757;
+      --shop-secondary: #ff6b6b;
+      --shop-bg: #f5fefb;
+      --liv-primary: #2A9BF4;
+      --liv-secondary: #1976D2;
+      --dark: #1a1a2e;
+      --dark-2: #16213e;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --white: #ffffff;
+      --radius: 20px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.12);
+      --shadow-sm: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 16px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.3s;
+    }
+
+    .nav-logo {
+      font-size: 26px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--shop-primary), var(--liv-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray);
+      font-weight: 500;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--dark); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--shop-primary), #ff6b81);
+      color: white !important;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(255,71,87,0.35) !important;
+      color: white !important;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0f0f1a 0%, #1a1a2e 40%, #16213e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,71,87,0.15) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,155,244,0.15) 0%, transparent 70%);
+      bottom: -100px; right: -100px;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 30px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-badge span { color: var(--shop-primary); }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .accent-red {
+      background: linear-gradient(135deg, #FF4757, #ff6b81);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero h1 .accent-blue {
+      background: linear-gradient(135deg, #2A9BF4, #64b5f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-shop {
+      background: linear-gradient(135deg, var(--shop-primary), #ff6b81);
+      color: white;
+      box-shadow: 0 10px 40px rgba(255,71,87,0.4);
+    }
+
+    .btn-shop:hover { transform: translateY(-3px); box-shadow: 0 15px 50px rgba(255,71,87,0.5); }
+
+    .btn-livreur {
+      background: linear-gradient(135deg, var(--liv-primary), var(--liv-secondary));
+      color: white;
+      box-shadow: 0 10px 40px rgba(42,155,244,0.4);
+    }
+
+    .btn-livreur:hover { transform: translateY(-3px); box-shadow: 0 15px 50px rgba(42,155,244,0.5); }
+
+    /* ===== PHONE MOCKUPS ===== */
+    .phones-section {
+      padding: 100px 5%;
+      background: var(--shop-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .phone-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .phone-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+    }
+
+    .label-shop { background: rgba(255,71,87,0.1); color: var(--shop-primary); }
+    .label-liv { background: rgba(42,155,244,0.1); color: var(--liv-primary); }
+
+    .phone {
+      width: 220px;
+      height: 440px;
+      border-radius: 36px;
+      border: 8px solid #1a1a2e;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.05);
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 60px; height: 7px;
+      background: #0d0d1a;
+      border-radius: 10px;
+      z-index: 10;
+    }
+
+    /* Phone Screen - Easy Shop */
+    .screen-shop {
+      width: 100%; height: 100%;
+      background: #f5fefb;
+      display: flex;
+      flex-direction: column;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .screen-shop .s-header {
+      background: linear-gradient(135deg, #FF4757, #ff6b6b);
+      padding: 30px 14px 16px;
+      color: white;
+    }
+
+    .screen-shop .s-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .s-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+    }
+
+    .s-search {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.8);
+      margin: 8px 0 0;
+    }
+
+    .screen-shop .s-cats {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px;
+      overflow: hidden;
+    }
+
+    .s-cat {
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid #e0e0e0;
+      color: #333;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .s-cat.active { background: var(--shop-primary); color: white; border-color: var(--shop-primary); }
+
+    .screen-shop .s-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 0 10px;
+    }
+
+    .s-product {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .s-product-img {
+      height: 70px;
+      background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .s-product-info { padding: 6px 8px; }
+    .s-product-name { font-size: 9px; font-weight: 600; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .s-product-price { font-size: 10px; font-weight: 700; color: var(--shop-primary); }
+
+    /* Phone Screen - Raaga Livreur */
+    .screen-liv {
+      width: 100%; height: 100%;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screen-liv .l-header {
+      background: linear-gradient(135deg, #2A9BF4, #1976D2);
+      padding: 30px 14px 16px;
+      color: white;
+    }
+
+    .l-header-name { font-size: 13px; font-weight: 700; color: white; }
+    .l-header-sub { font-size: 10px; color: rgba(255,255,255,0.75); }
+
+    .l-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+
+    .l-toggle-txt { font-size: 11px; color: rgba(255,255,255,0.9); }
+
+    .l-toggle {
+      width: 38px; height: 20px;
+      background: #4CAF50;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .l-toggle::after {
+      content: '';
+      position: absolute;
+      right: 3px; top: 3px;
+      width: 14px; height: 14px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .l-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .l-stat {
+      background: white;
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .l-stat-val { font-size: 16px; font-weight: 800; color: var(--liv-primary); }
+    .l-stat-lbl { font-size: 8px; color: #999; }
+
+    .l-orders-title { font-size: 11px; font-weight: 700; padding: 0 12px 6px; color: #333; }
+
+    .l-order-card {
+      background: white;
+      margin: 0 12px 8px;
+      border-radius: 10px;
+      padding: 8px 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .l-order-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .l-order-id { font-size: 11px; font-weight: 700; color: #333; }
+    .l-order-amount { font-size: 12px; font-weight: 800; color: #4CAF50; }
+    .l-order-addr { font-size: 9px; color: #666; margin: 2px 0; }
+    .l-order-earn { font-size: 9px; color: #4CAF50; font-weight: 600; }
+
+    .l-order-btn {
+      background: #4CAF50;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 4px 10px;
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* ===== SECTION GÉNÉRIQUE ===== */
+    section { padding: 100px 5%; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+
+    .tag-red { background: rgba(255,71,87,0.1); color: var(--shop-primary); }
+    .tag-blue { background: rgba(42,155,244,0.1); color: var(--liv-primary); }
+    .tag-dark { background: rgba(26,26,46,0.08); color: var(--dark); }
+
+    .section-title {
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    /* ===== EASY SHOP SECTION ===== */
+    .shop-section {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .icon-red { background: rgba(255,71,87,0.1); color: var(--shop-primary); }
+    .icon-blue { background: rgba(42,155,244,0.1); color: var(--liv-primary); }
+    .icon-green { background: rgba(76,175,80,0.1); color: #4CAF50; }
+    .icon-purple { background: rgba(103,78,167,0.1); color: #674ea7; }
+    .icon-orange { background: rgba(255,150,50,0.1); color: #ff9632; }
+    .icon-teal { background: rgba(0,188,212,0.1); color: #00bcd4; }
+
+    .feature-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .feature-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+
+    /* ===== VISUAL MOCKUP LARGE ===== */
+    .mockup-large {
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    .phone-large {
+      width: 260px;
+      height: 520px;
+      border-radius: 44px;
+      border: 10px solid #1a1a2e;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.05);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-large::before {
+      content: '';
+      position: absolute;
+      top: 14px; left: 50%;
+      transform: translateX(-50%);
+      width: 70px; height: 8px;
+      background: #0d0d1a;
+      border-radius: 10px;
+      z-index: 10;
+    }
+
+    .phone-large::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255,255,255,0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .phone-float {
+      position: absolute;
+      width: 160px; height: 320px;
+      border-radius: 28px;
+      border: 7px solid #1a1a2e;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .phone-float-1 { bottom: -30px; right: -50px; }
+    .phone-float-2 { top: -30px; left: -50px; }
+
+    /* Screen: Vendor Dashboard */
+    .screen-vendor {
+      width: 100%; height: 100%;
+      background: #f5fefb;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .v-header {
+      background: var(--dark);
+      padding: 36px 16px 16px;
+      color: white;
+    }
+
+    .v-title { font-size: 14px; font-weight: 700; }
+    .v-sub { font-size: 10px; color: rgba(255,255,255,0.6); }
+
+    .v-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 12px; }
+
+    .v-stat {
+      background: white;
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .v-stat-val { font-size: 13px; font-weight: 800; color: var(--shop-primary); }
+    .v-stat-lbl { font-size: 7px; color: #999; }
+
+    .v-orders-title { font-size: 11px; font-weight: 700; padding: 0 12px 4px; }
+
+    .v-order {
+      background: white;
+      margin: 0 10px 6px;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .v-order-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot-green { background: #4CAF50; }
+    .dot-orange { background: #FF9800; }
+    .dot-red { background: var(--shop-primary); }
+
+    .v-order-name { font-size: 9px; font-weight: 600; flex: 1; }
+    .v-order-price { font-size: 9px; font-weight: 700; color: var(--shop-primary); }
+
+    /* Screen: Orders (livreur) */
+    .screen-orders {
+      width: 100%; height: 100%;
+      background: #f5f5f5;
+    }
+
+    .o-header {
+      background: linear-gradient(135deg, #2A9BF4, #1976D2);
+      padding: 28px 14px 12px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .o-header-title { font-size: 13px; font-weight: 700; }
+    .o-refresh { width: 24px; height: 24px; border-radius: 6px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+    .o-tabs { display: flex; gap: 6px; padding: 10px 10px 4px; overflow: hidden; }
+    .o-tab { font-size: 9px; padding: 4px 10px; border-radius: 12px; border: 1px solid #e0e0e0; color: #666; white-space: nowrap; }
+    .o-tab.active { background: #2A9BF4; color: white; border-color: #2A9BF4; }
+
+    .o-card {
+      background: white;
+      margin: 6px 10px;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .o-card-top { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .o-card-id { font-size: 11px; font-weight: 700; }
+    .o-card-amount { font-size: 12px; font-weight: 800; color: #4CAF50; }
+    .o-card-addr { font-size: 9px; color: #555; margin: 2px 0; }
+    .o-card-earn { font-size: 9px; color: #4CAF50; font-weight: 600; margin: 4px 0; }
+
+    .o-card-btns { display: flex; gap: 6px; margin-top: 6px; }
+    .o-btn-detail { flex: 1; font-size: 8px; padding: 4px; background: #f0f0f0; border-radius: 6px; text-align: center; color: #333; font-weight: 600; }
+    .o-btn-accept { flex: 1; font-size: 8px; padding: 4px; background: #4CAF50; border-radius: 6px; text-align: center; color: white; font-weight: 700; }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-section {
+      background: linear-gradient(160deg, #0f0f1a 0%, #1a1a2e 100%);
+      text-align: center;
+    }
+
+    .how-section .section-title { color: white; }
+    .how-section .section-sub { color: rgba(255,255,255,0.55); margin: 0 auto 60px; }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .step-card:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-6px);
+    }
+
+    .step-number {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto 16px;
+    }
+
+    .step-title { font-size: 16px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .step-desc { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ===== LIVREUR SECTION ===== */
+    .livreur-section {
+      background: var(--gray-light);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .livreur-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover { transform: translateY(-4px); }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label { font-size: 13px; color: var(--gray); }
+
+    /* ===== ECOSYSTEM ===== */
+    .ecosystem-section {
+      background: white;
+      text-align: center;
+    }
+
+    .ecosystem-section .section-title { margin-bottom: 60px; }
+
+    .eco-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .eco-card {
+      background: var(--gray-light);
+      border-radius: 20px;
+      padding: 32px 28px;
+      flex: 1;
+      min-width: 200px;
+      max-width: 240px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .eco-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-sm); }
+
+    .eco-icon {
+      width: 64px; height: 64px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin: 0 auto 16px;
+    }
+
+    .eco-icon-shop { background: linear-gradient(135deg, #FF4757, #ff6b81); color: white; }
+    .eco-icon-live { background: linear-gradient(135deg, #674ea7, #9b59b6); color: white; }
+    .eco-icon-liv { background: linear-gradient(135deg, #2A9BF4, #1976D2); color: white; }
+
+    .eco-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .eco-desc { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+    .eco-arrow {
+      font-size: 28px;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials {
+      background: var(--shop-bg);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .t-stars { color: #ffa000; font-size: 14px; margin-bottom: 12px; }
+    .t-quote { font-size: 15px; color: #333; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .t-author { display: flex; align-items: center; gap: 12px; }
+    .t-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .t-name { font-size: 14px; font-weight: 700; }
+    .t-role { font-size: 12px; color: var(--gray); }
+
+    /* ===== CTA FINAL ===== */
+    .cta-section {
+      background: linear-gradient(160deg, #0f0f1a 0%, #1a1a2e 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,71,87,0.12) 0%, transparent 70%);
+      top: -150px; right: -100px;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,155,244,0.12) 0%, transparent 70%);
+      bottom: -100px; left: -100px;
+    }
+
+    .cta-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .cta-title { font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: white; line-height: 1.2; margin-bottom: 20px; }
+    .cta-sub { font-size: 17px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 48px; }
+
+    .cta-apps {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-app-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 28px 32px;
+      min-width: 200px;
+      transition: all 0.3s;
+    }
+
+    .cta-app-box:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-4px);
+    }
+
+    .cta-app-icon { font-size: 36px; margin-bottom: 12px; }
+    .cta-app-name { font-size: 16px; font-weight: 700; color: white; margin-bottom: 4px; }
+    .cta-app-desc { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+
+    .cta-store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      color: white;
+    }
+
+    .store-shop { background: linear-gradient(135deg, var(--shop-primary), #ff6b81); }
+    .store-shop:hover { box-shadow: 0 8px 25px rgba(255,71,87,0.4); }
+
+    .store-liv { background: linear-gradient(135deg, var(--liv-primary), var(--liv-secondary)); }
+    .store-liv:hover { box-shadow: 0 8px 25px rgba(42,155,244,0.4); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark-2);
+      padding: 48px 5% 32px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand-name { font-size: 24px; font-weight: 900; background: linear-gradient(135deg, var(--shop-primary), var(--liv-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+    .footer-desc { font-size: 14px; line-height: 1.7; max-width: 300px; }
+
+    .footer-col-title { font-size: 14px; font-weight: 700; color: white; margin-bottom: 16px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 14px; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      font-size: 13px;
+    }
+
+    .footer-socials { display: flex; gap: 12px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .social-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .shop-section, .livreur-section {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .livreur-section .mockup-large { order: -1; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .phones-section { gap: 24px; }
+      .phone { width: 170px; height: 340px; border-radius: 28px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .eco-arrow { display: none; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">Raaga</div>
+    <ul class="nav-links">
+      <li><a href="#shop">Easy Shop</a></li>
+      <li><a href="#livreur">Raaga Livreur</a></li>
+      <li><a href="#ecosysteme">Écosystème</a></li>
+      <li><a href="#contact" class="nav-cta">Télécharger</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-globe-africa"></i>
+        <span>Fait pour l'Afrique</span> · Marché francophone
+      </div>
+      <h1>
+        Commerce mobile,<br/>
+        <span class="accent-red">simplifié</span> pour tous.<br/>
+        <span class="accent-blue">Livré</span> chez vous.
+      </h1>
+      <p>
+        Easy Shop connecte acheteurs et vendeurs. Raaga Livreur livre les commandes à votre porte.
+        Un écosystème complet, pensé pour le marché africain.
+      </p>
+      <div class="hero-btns">
+        <a href="#shop" class="btn-hero btn-shop">
+          <i class="fas fa-store"></i> Explorer Easy Shop
+        </a>
+        <a href="#livreur" class="btn-hero btn-livreur">
+          <i class="fas fa-motorcycle"></i> Devenir livreur
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHONES MOCKUP -->
+  <div class="phones-section">
+
+    <!-- Easy Shop phone -->
+    <div class="phone-wrap fade-in">
+      <div class="phone-label label-shop"><i class="fas fa-store"></i> Easy Shop</div>
+      <div class="phone">
+        <div class="screen-shop">
+          <div class="s-header">
+            <div class="s-header-row">
+              <div class="s-avatar"><i class="fas fa-user" style="font-size:14px"></i></div>
+              <span style="font-size:12px;font-weight:700;color:white">Bonjour 👋</span>
+              <i class="fas fa-bell" style="color:white;font-size:14px"></i>
+            </div>
+            <div class="s-search"><i class="fas fa-search" style="margin-right:6px"></i>Rechercher un produit…</div>
+          </div>
+          <div class="s-cats">
+            <div class="s-cat active">Tout</div>
+            <div class="s-cat">Mode</div>
+            <div class="s-cat">Tech</div>
+            <div class="s-cat">Alimentation</div>
+          </div>
+          <div class="s-grid">
+            <div class="s-product">
+              <div class="s-product-img">👗</div>
+              <div class="s-product-info">
+                <div class="s-product-name">Robe élégante</div>
+                <div class="s-product-price">12 500 FCFA</div>
+              </div>
+            </div>
+            <div class="s-product">
+              <div class="s-product-img">📱</div>
+              <div class="s-product-info">
+                <div class="s-product-name">Smartphone</div>
+                <div class="s-product-price">85 000 FCFA</div>
+              </div>
+            </div>
+            <div class="s-product">
+              <div class="s-product-img">🥩</div>
+              <div class="s-product-info">
+                <div class="s-product-name">Viande fraîche</div>
+                <div class="s-product-price">5 000 FCFA</div>
+              </div>
+            </div>
+            <div class="s-product">
+              <div class="s-product-img">🔧</div>
+              <div class="s-product-info">
+                <div class="s-product-name">Outillage</div>
+                <div class="s-product-price">22 000 FCFA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Raaga Livreur phone -->
+    <div class="phone-wrap fade-in fade-in-delay-2">
+      <div class="phone-label label-liv"><i class="fas fa-motorcycle"></i> Raaga Livreur</div>
+      <div class="phone">
+        <div class="screen-liv">
+          <div class="l-header">
+            <div class="l-header-name">Moussa Diallo</div>
+            <div class="l-header-sub">Livreur · Zone Bobo-Dioulasso</div>
+            <div class="l-toggle-row">
+              <span class="l-toggle-txt"><i class="fas fa-circle" style="color:#4CAF50;font-size:8px;margin-right:4px"></i> En ligne</span>
+              <div class="l-toggle"></div>
+            </div>
+          </div>
+          <div class="l-stats">
+            <div class="l-stat">
+              <div class="l-stat-val">8</div>
+              <div class="l-stat-lbl">Livraisons</div>
+            </div>
+            <div class="l-stat">
+              <div class="l-stat-val" style="font-size:11px;color:#4CAF50">28K</div>
+              <div class="l-stat-lbl">FCFA gagnés</div>
+            </div>
+            <div class="l-stat">
+              <div class="l-stat-val" style="font-size:11px;color:#FF9800">47km</div>
+              <div class="l-stat-lbl">Parcourus</div>
+            </div>
+            <div class="l-stat">
+              <div class="l-stat-val" style="font-size:11px;color:#FF9800">4.8⭐</div>
+              <div class="l-stat-lbl">Note</div>
+            </div>
+          </div>
+          <div class="l-orders-title">Commandes disponibles</div>
+          <div class="l-order-card">
+            <div class="l-order-row">
+              <span class="l-order-id">#12</span>
+              <span class="l-order-amount">9 500 FCFA</span>
+            </div>
+            <div class="l-order-addr">📍 Boutique Centrale → Secteur 7</div>
+            <div class="l-order-earn">Vos gains : 3 500 FCFA</div>
+            <div class="l-order-btn">Accepter la livraison →</div>
+          </div>
+          <div class="l-order-card">
+            <div class="l-order-row">
+              <span class="l-order-id">#11</span>
+              <span class="l-order-amount">5 200 FCFA</span>
+            </div>
+            <div class="l-order-addr">📍 Magasin principal → Quartier Nord</div>
+            <div class="l-order-earn">Vos gains : 2 100 FCFA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- EASY SHOP FEATURES -->
+  <section id="shop" class="shop-section">
+    <div class="fade-in">
+      <div class="section-tag tag-red"><i class="fas fa-store"></i> Easy Shop</div>
+      <h2 class="section-title">Le marché<br/>dans votre poche</h2>
+      <p class="section-sub">
+        Achetez et vendez produits et services en toute simplicité. 
+        7 catégories, paiement mobile, live streaming, messagerie intégrée.
+      </p>
+      <div class="features-grid">
+        <div class="feature-card fade-in fade-in-delay-1">
+          <div class="feature-icon icon-red"><i class="fas fa-store"></i></div>
+          <div class="feature-name">Marketplace</div>
+          <div class="feature-desc">7 catégories : mode, tech, alimentation, véhicules et plus</div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-2">
+          <div class="feature-icon icon-purple"><i class="fas fa-chart-line"></i></div>
+          <div class="feature-name">Dashboard vendeur</div>
+          <div class="feature-desc">Statistiques temps réel : recettes FCFA, commandes, abonnés</div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-3">
+          <div class="feature-icon icon-green"><i class="fas fa-comments"></i></div>
+          <div class="feature-name">Chat intégré</div>
+          <div class="feature-desc">Messagerie directe entre acheteurs et vendeurs</div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-4">
+          <div class="feature-icon icon-orange"><i class="fas fa-video"></i></div>
+          <div class="feature-name">Live streaming</div>
+          <div class="feature-desc">Vendez en direct devant des milliers de spectateurs</div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-1">
+          <div class="feature-icon icon-teal"><i class="fas fa-bell"></i></div>
+          <div class="feature-name">Notifications push</div>
+          <div class="feature-desc">Alertes commandes, promotions et messages en temps réel</div>
+        </div>
+        <div class="feature-card fade-in fade-in-delay-2">
+          <div class="feature-icon icon-purple"><i class="fas fa-users"></i></div>
+          <div class="feature-name">Réseau social</div>
+          <div class="feature-desc">Fil d'actualité, posts et avis pour votre communauté</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-large fade-in fade-in-delay-2">
+      <div class="phone-large">
+        <div class="screen-vendor">
+          <div class="v-header">
+            <div class="v-title">Dashboard Vendeur</div>
+            <div class="v-sub">Aujourd'hui · 30 mars 2026</div>
+          </div>
+          <div class="v-stats">
+            <div class="v-stat">
+              <div class="v-stat-val">12</div>
+              <div class="v-stat-lbl">Commandes</div>
+            </div>
+            <div class="v-stat">
+              <div class="v-stat-val" style="font-size:11px">125K</div>
+              <div class="v-stat-lbl">FCFA</div>
+            </div>
+            <div class="v-stat">
+              <div class="v-stat-val">348</div>
+              <div class="v-stat-lbl">Abonnés</div>
+            </div>
+          </div>
+          <div style="background:white;margin:8px;border-radius:10px;padding:8px 10px;box-shadow:0 2px 6px rgba(0,0,0,0.05)">
+            <div style="font-size:10px;font-weight:700;color:#333;margin-bottom:6px">Nouvelles commandes</div>
+            <div style="display:flex;gap:4px;overflow:hidden">
+              <div style="background:#4CAF50;color:white;font-size:9px;padding:3px 8px;border-radius:6px">2 nouvelles</div>
+            </div>
+          </div>
+          <div class="v-orders-title">Commandes récentes</div>
+          <div class="v-order">
+            <div class="v-order-dot dot-green"></div>
+            <div class="v-order-name">Robe africaine x2</div>
+            <div class="v-order-price">25 000 F</div>
+          </div>
+          <div class="v-order">
+            <div class="v-order-dot dot-orange"></div>
+            <div class="v-order-name">Smartphone Samsung</div>
+            <div class="v-order-price">85 000 F</div>
+          </div>
+          <div class="v-order">
+            <div class="v-order-dot dot-red"></div>
+            <div class="v-order-name">Pantalon jeans slim</div>
+            <div class="v-order-price">15 000 F</div>
+          </div>
+          <div class="v-order">
+            <div class="v-order-dot dot-green"></div>
+            <div class="v-order-name">Sac à main cuir</div>
+            <div class="v-order-price">32 000 F</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- floating phone -->
+      <div class="phone-float phone-float-1">
+        <div class="screen-orders">
+          <div class="o-header">
+            <span class="o-header-title">Commandes dispo</span>
+            <span class="o-refresh">↻</span>
+          </div>
+          <div class="o-tabs">
+            <div class="o-tab active">Toutes</div>
+            <div class="o-tab">En att.</div>
+            <div class="o-tab">Proches</div>
+          </div>
+          <div class="o-card">
+            <div class="o-card-top">
+              <span class="o-card-id">#14</span>
+              <span class="o-card-amount">12K FCFA</span>
+            </div>
+            <div class="o-card-addr">🏪 Boutique A → Secteur 12</div>
+            <div class="o-card-earn">Gains : 4 200 FCFA</div>
+            <div class="o-card-btns">
+              <div class="o-btn-detail">Détails</div>
+              <div class="o-btn-accept">Accepter ✓</div>
+            </div>
+          </div>
+          <div class="o-card">
+            <div class="o-card-top">
+              <span class="o-card-id">#13</span>
+              <span class="o-card-amount">7K FCFA</span>
+            </div>
+            <div class="o-card-addr">🏪 Marché central → Cité</div>
+            <div class="o-card-earn">Gains : 2 450 FCFA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div style="max-width:800px;margin:0 auto 60px;text-align:center" class="fade-in">
+      <div class="section-tag tag-dark" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)">Comment ça marche</div>
+      <h2 class="section-title">Simple comme bonjour</h2>
+      <p class="section-sub" style="margin:0 auto">En 3 étapes, passez de l'envie à la livraison.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card fade-in fade-in-delay-1">
+        <div class="step-number icon-red" style="background:rgba(255,71,87,0.15)">🛒</div>
+        <div class="step-title">Commandez</div>
+        <div class="step-desc">Parcourez le catalogue, choisissez vos produits ou services, payez en FCFA ou mobile money.</div>
+      </div>
+      <div class="step-card fade-in fade-in-delay-2">
+        <div class="step-number" style="background:rgba(103,78,167,0.15)">🔔</div>
+        <div class="step-title">Le vendeur confirme</div>
+        <div class="step-desc">Le vendeur reçoit la commande instantanément et la prépare sur son tableau de bord.</div>
+      </div>
+      <div class="step-card fade-in fade-in-delay-3">
+        <div class="step-number" style="background:rgba(42,155,244,0.15)">🏍️</div>
+        <div class="step-title">Un livreur délivre</div>
+        <div class="step-desc">Un livreur Raaga accepte la mission et livre directement chez vous. Suivi en temps réel.</div>
+      </div>
+      <div class="step-card fade-in fade-in-delay-4">
+        <div class="step-number" style="background:rgba(76,175,80,0.15)">✅</div>
+        <div class="step-title">Récupérez et notez</div>
+        <div class="step-desc">Recevez votre commande, confirmez la livraison et laissez un avis pour la communauté.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAAGA LIVREUR FEATURES -->
+  <section id="livreur" class="livreur-section">
+    <div class="mockup-large fade-in">
+      <div class="phone-large">
+        <div class="screen-liv">
+          <div class="l-header" style="padding:36px 16px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:start">
+              <div>
+                <div class="l-header-name" style="font-size:15px">Bonjour Ibrahim 👋</div>
+                <div class="l-header-sub">Livreur actif · Ouagadougou</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:18px;font-weight:900;color:white">62 400</div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.7)">FCFA ce mois</div>
+              </div>
+            </div>
+            <div class="l-toggle-row" style="margin-top:12px;background:rgba(255,255,255,0.1);padding:8px 12px;border-radius:12px">
+              <span class="l-toggle-txt">Statut : <strong style="color:#4CAF50">En ligne ✓</strong></span>
+              <div class="l-toggle"></div>
+            </div>
+          </div>
+          <div class="l-stats">
+            <div class="l-stat">
+              <div class="l-stat-val">14</div>
+              <div class="l-stat-lbl">Livraisons</div>
+            </div>
+            <div class="l-stat">
+              <div class="l-stat-val" style="font-size:12px;color:#4CAF50">49K</div>
+              <div class="l-stat-lbl">FCFA gagnés</div>
+            </div>
+            <div class="l-stat">
+              <div class="l-stat-val" style="font-size:12px;color:#FF9800">87km</div>
+              <div class="l-stat-lbl">Distance</div>
+            </div>
+            <div class="l-stat">
+              <div class="l-stat-val" style="font-size:12px;color:#FFA000">4.9⭐</div>
+              <div class="l-stat-lbl">Note moy.</div>
+            </div>
+          </div>
+          <div class="l-orders-title" style="padding:4px 12px 4px">Nouvelles commandes</div>
+          <div class="l-order-card">
+            <div class="l-order-row">
+              <span class="l-order-id">#18</span>
+              <span class="l-order-amount">15 000 FCFA</span>
+            </div>
+            <div class="l-order-addr">📍 Boutique Wend-Zoodo → Villa 12 Tanghin</div>
+            <div class="l-order-earn">✅ Vos gains : 5 250 FCFA</div>
+            <div class="l-order-btn">Accepter →</div>
+          </div>
+          <div class="l-order-card">
+            <div class="l-order-row">
+              <span class="l-order-id">#17</span>
+              <span class="l-order-amount">8 500 FCFA</span>
+            </div>
+            <div class="l-order-addr">📍 Centre commercial → Secteur 27</div>
+            <div class="l-order-earn">✅ Vos gains : 2 975 FCFA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in fade-in-delay-2">
+      <div class="section-tag tag-blue"><i class="fas fa-motorcycle"></i> Raaga Livreur</div>
+      <h2 class="section-title">Livrez.<br/>Gagnez.<br/><span style="color:var(--liv-primary)">Librement.</span></h2>
+      <p class="section-sub">
+        Rejoignez le réseau de livreurs Raaga. Choisissez vos horaires, acceptez les commandes qui vous conviennent, et suivez vos revenus en temps réel.
+      </p>
+      <div class="livreur-stats">
+        <div class="stat-card fade-in fade-in-delay-1">
+          <div class="stat-value" style="color:var(--liv-primary)">70%</div>
+          <div class="stat-label">Des frais de livraison reversés au livreur</div>
+        </div>
+        <div class="stat-card fade-in fade-in-delay-2">
+          <div class="stat-value" style="color:#4CAF50">100%</div>
+          <div class="stat-label">Liberté d'horaires, activez/désactivez à tout moment</div>
+        </div>
+        <div class="stat-card fade-in fade-in-delay-3">
+          <div class="stat-value" style="color:#FF9800">GPS</div>
+          <div class="stat-label">Adresses et coordonnées GPS pour chaque livraison</div>
+        </div>
+        <div class="stat-card fade-in fade-in-delay-4">
+          <div class="stat-value" style="color:var(--shop-primary)">⭐</div>
+          <div class="stat-label">Système de notation pour valoriser votre sérieux</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section id="ecosysteme" class="ecosystem-section">
+    <div class="fade-in">
+      <div class="section-tag tag-dark" style="display:block;text-align:center">Écosystème Raaga</div>
+      <h2 class="section-title" style="text-align:center">Un écosystème,<br/>trois acteurs</h2>
+    </div>
+    <div class="eco-flow fade-in fade-in-delay-1">
+      <div class="eco-card">
+        <div class="eco-icon eco-icon-shop"><i class="fas fa-shopping-bag"></i></div>
+        <div class="eco-title">Acheteur</div>
+        <div class="eco-desc">Navigue, commande et reçoit ses produits. Paiement mobile, historique en temps réel.</div>
+      </div>
+      <div class="eco-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="eco-card">
+        <div class="eco-icon eco-icon-live"><i class="fas fa-store"></i></div>
+        <div class="eco-title">Vendeur</div>
+        <div class="eco-desc">Gère son catalogue, ses promotions, son live et ses revenus depuis un seul dashboard.</div>
+      </div>
+      <div class="eco-arrow"><i class="fas fa-arrow-right"></i></div>
+      <div class="eco-card">
+        <div class="eco-icon eco-icon-liv"><i class="fas fa-motorcycle"></i></div>
+        <div class="eco-title">Livreur</div>
+        <div class="eco-desc">Reçoit les commandes, les livre et perçoit 70% des frais directement dans l'app.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div style="text-align:center;max-width:600px;margin:0 auto" class="fade-in">
+      <div class="section-tag tag-red">Ils nous font confiance</div>
+      <h2 class="section-title">Ce que disent<br/>nos utilisateurs</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-in fade-in-delay-1">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">"Easy Shop m'a permis de tripler mes ventes en 2 mois. Le dashboard vendeur est incroyable, je vois tout en temps réel !"</div>
+        <div class="t-author">
+          <div class="t-avatar" style="background:rgba(255,71,87,0.1)">👩🏾</div>
+          <div>
+            <div class="t-name">Aminata Sawadogo</div>
+            <div class="t-role">Vendeuse de mode · Ouagadougou</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in fade-in-delay-2">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">"Avec Raaga Livreur, je gagne entre 40 000 et 60 000 FCFA par semaine. Je choisis mes horaires, c'est la liberté totale."</div>
+        <div class="t-author">
+          <div class="t-avatar" style="background:rgba(42,155,244,0.1)">👨🏾</div>
+          <div>
+            <div class="t-name">Ibrahim Compaoré</div>
+            <div class="t-role">Livreur · Bobo-Dioulasso</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-in fade-in-delay-3">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">"J'ai commandé un téléphone un matin, il était livré l'après-midi. Pratique, rapide et le livreur était super professionnel."</div>
+        <div class="t-author">
+          <div class="t-avatar" style="background:rgba(76,175,80,0.1)">👩🏽</div>
+          <div>
+            <div class="t-name">Fatoumata Diallo</div>
+            <div class="t-role">Acheteuse · Ouagadougou</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="contact" class="cta-section">
+    <div class="cta-content fade-in">
+      <h2 class="cta-title">Prêt à rejoindre<br/>l'écosystème Raaga ?</h2>
+      <p class="cta-sub">Téléchargez Easy Shop pour acheter et vendre, ou Raaga Livreur pour commencer à livrer et gagner de l'argent.</p>
+      <div class="cta-apps">
+        <div class="cta-app-box fade-in fade-in-delay-1">
+          <div class="cta-app-icon">🛒</div>
+          <div class="cta-app-name">Easy Shop</div>
+          <div class="cta-app-desc">Pour les acheteurs & vendeurs</div>
+          <a href="#" class="cta-store-btn store-shop">
+            <i class="fab fa-google-play"></i> Google Play
+          </a>
+        </div>
+        <div class="cta-app-box fade-in fade-in-delay-2">
+          <div class="cta-app-icon">🏍️</div>
+          <div class="cta-app-name">Raaga Livreur</div>
+          <div class="cta-app-desc">Pour les livreurs indépendants</div>
+          <a href="#" class="cta-store-btn store-liv">
+            <i class="fab fa-google-play"></i> Google Play
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Raaga</div>
+        <p class="footer-desc">L'écosystème du commerce mobile en Afrique francophone. Achetez, vendez, livrez en toute simplicité.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Applications</div>
+        <ul class="footer-links">
+          <li><a href="#shop">Easy Shop</a></li>
+          <li><a href="#livreur">Raaga Livreur</a></li>
+          <li><a href="#ecosysteme">Écosystème</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Partenariats</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Raaga. Tous droits réservés.</div>
+      <div class="footer-socials">
+        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Navbar scroll shadow
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 20) {
+        nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+      } else {
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

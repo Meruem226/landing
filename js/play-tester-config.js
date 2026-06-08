@@ -1,15 +1,7 @@
 /**
- * Configuration du flux testeurs Play Store.
- * Mettez à jour ces valeurs avant déploiement sur GitHub Pages.
+ * Configuration landing → API Railway (inscriptions testeurs Play Store).
  */
 window.PLAY_TESTER_CONFIG = {
-  // URL publique de l'API Railway (sans slash final)
-  API_URL: "https://VOTRE-SERVICE.up.railway.app",
-
-  // Lien opt-in test fermé (fallback si l'API ne renvoie pas play_store_url)
-  PLAY_STORE_URL:
-    "https://play.google.com/apps/testing/VOTRE.PACKAGE.ID",
-
-  // Endpoint relatif ajouté à API_URL
-  ADD_TESTER_PATH: "/add-tester",
+  API_URL: "https://web-production-7a77c.up.railway.app",
+  SIGNUP_PATH: "/api/public/play-tester-signup/",
 };

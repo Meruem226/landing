@@ -1,130 +1,142 @@
 /**
- * Flux testeurs Google Play — landing GitHub Pages → API Railway → Play Store
+ * Modal testeur Play Store — landing GitHub Pages → API Django Railway.
  */
 (function () {
   "use strict";
 
   const config = window.PLAY_TESTER_CONFIG || {};
-  const form = document.getElementById("playTesterForm");
-  if (!form) return;
+  const modal = document.getElementById("testerModal");
+  const introPanel = document.getElementById("testerIntroPanel");
+  const formPanel = document.getElementById("testerFormPanel");
+  const successPanel = document.getElementById("testerSuccessPanel");
+  const form = document.getElementById("testerSignupForm");
+  const feedbackEl = document.getElementById("testerFeedback");
+  const submitBtn = document.getElementById("testerSubmitBtn");
 
-  const emailInput = document.getElementById("playTesterEmail");
-  const submitBtn = document.getElementById("playTesterSubmit");
-  const feedbackEl = document.getElementById("playTesterFeedback");
-  const defaultBtnHtml = submitBtn ? submitBtn.innerHTML : "";
+  if (!modal) return;
 
-  function getApiUrl() {
+  function apiUrl() {
     const base = (config.API_URL || "").replace(/\/$/, "");
-    const path = config.ADD_TESTER_PATH || "/add-tester";
+    const path = config.SIGNUP_PATH || "/api/public/play-tester-signup/";
     return base + path;
   }
 
-  function getPlayStoreUrl(apiResponse) {
-    if (apiResponse && apiResponse.play_store_url) {
-      return apiResponse.play_store_url;
-    }
-    return config.PLAY_STORE_URL || "";
+  function showPanel(panel) {
+    [introPanel, formPanel, successPanel].forEach(function (p) {
+      if (p) p.hidden = p !== panel;
+    });
   }
 
-  function setLoading(isLoading) {
-    if (!submitBtn) return;
-    submitBtn.disabled = isLoading;
-    emailInput.disabled = isLoading;
-    if (isLoading) {
-      submitBtn.innerHTML =
-        '<i class="fas fa-spinner fa-spin"></i> Inscription en cours…';
-    } else {
-      submitBtn.innerHTML = defaultBtnHtml;
-    }
-  }
-
-  function showFeedback(message, type) {
+  function setFeedback(msg, type) {
     if (!feedbackEl) return;
-    feedbackEl.textContent = message;
-    feedbackEl.className = "play-tester-feedback " + (type || "");
-    feedbackEl.hidden = !message;
+    feedbackEl.textContent = msg || "";
+    feedbackEl.className = "tester-feedback" + (type ? " " + type : "");
+    feedbackEl.hidden = !msg;
   }
 
-  function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  function openModal(showForm) {
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+    showPanel(showForm ? formPanel : introPanel);
+    setFeedback("");
+    if (form) form.reset();
+    if (showForm) {
+      window.setTimeout(function () {
+        document.getElementById("testerEmail")?.focus();
+      }, 80);
+    }
   }
 
-  async function handleSubmit(event) {
-    event.preventDefault();
-    showFeedback("", "");
+  function closeModal() {
+    modal.hidden = true;
+    document.body.style.overflow = "";
+  }
 
-    const email = (emailInput.value || "").trim().toLowerCase();
-    if (!isValidEmail(email)) {
-      showFeedback("Veuillez saisir une adresse Gmail valide.", "error");
+  window.openTesterModal = openModal;
+  window.closeTesterModal = closeModal;
+
+  document.addEventListener("click", function (e) {
+    var trigger = e.target.closest("[data-tester-download]");
+    if (!trigger) return;
+    e.preventDefault();
+    openModal(false);
+  });
+
+  modal.querySelectorAll("[data-tester-close]").forEach(function (el) {
+    el.addEventListener("click", closeModal);
+  });
+
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  document.getElementById("testerContinueBtn")?.addEventListener("click", function () {
+    showPanel(formPanel);
+    document.getElementById("testerEmail")?.focus();
+  });
+
+  document.getElementById("testerBackBtn")?.addEventListener("click", function () {
+    showPanel(introPanel);
+    setFeedback("");
+  });
+
+  form?.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    setFeedback("");
+
+    const email = (document.getElementById("testerEmail")?.value || "").trim();
+    const whatsapp = (document.getElementById("testerWhatsapp")?.value || "").trim();
+
+    if (!email || !whatsapp) {
+      setFeedback("Veuillez remplir l'e-mail et le numéro WhatsApp.", "error");
       return;
     }
 
-    const apiUrl = getApiUrl();
-    if (!apiUrl || apiUrl.includes("VOTRE-SERVICE")) {
-      showFeedback(
-        "Configuration incomplète : mettez à jour js/play-tester-config.js (API_URL).",
-        "error"
-      );
+    const url = apiUrl();
+    if (!config.API_URL || url.includes("VOTRE-SERVICE")) {
+      setFeedback("Configuration API manquante. Contactez l'équipe Raaga.", "error");
       return;
     }
 
-    setLoading(true);
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Envoi en cours…";
 
     try {
-      const response = await fetch(apiUrl, {
+      const res = await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ email: email }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email: email, whatsapp: whatsapp }),
       });
 
       let data = {};
       try {
-        data = await response.json();
-      } catch (_) {
-        data = {};
-      }
+        data = await res.json();
+      } catch (_) {}
 
-      if (!response.ok) {
-        let msg =
-          "Impossible de vous inscrire pour le moment. Réessayez plus tard.";
-        if (data) {
-          if (typeof data.message === "string") msg = data.message;
-          else if (typeof data.detail === "string") msg = data.detail;
-          else if (data.detail && typeof data.detail.message === "string") {
-            msg = data.detail.message;
-          }
-        }
-        showFeedback(msg, "error");
-        setLoading(false);
+      if (!res.ok) {
+        const errMsg =
+          data.email?.[0] ||
+          data.whatsapp?.[0] ||
+          data.error ||
+          data.detail ||
+          "Erreur lors de l'envoi. Réessayez.";
+        setFeedback(errMsg, "error");
         return;
       }
 
-      const playUrl = getPlayStoreUrl(data);
-      if (!playUrl || playUrl.includes("VOTRE.PACKAGE")) {
-        showFeedback(
-          "Inscription réussie ! Configurez PLAY_STORE_TEST_URL sur Railway ou play-tester-config.js.",
-          "success"
-        );
-        setLoading(false);
-        return;
+      showPanel(successPanel);
+      const msgEl = document.getElementById("testerSuccessMessage");
+      if (msgEl) {
+        msgEl.textContent =
+          data.message ||
+          "Merci ! Nous vous contacterons par e-mail et WhatsApp pour activer votre accès testeur.";
       }
-
-      showFeedback("Redirection vers Google Play…", "success");
-      window.setTimeout(function () {
-        window.location.href = playUrl;
-      }, 600);
-    } catch (error) {
-      console.error("[play-tester]", error);
-      showFeedback(
-        "Erreur réseau. Vérifiez votre connexion ou réessayez.",
-        "error"
-      );
-      setLoading(false);
+    } catch (err) {
+      console.error("[play-tester]", err);
+      setFeedback("Connexion impossible. Vérifiez votre réseau et réessayez.", "error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma demande';
     }
-  }
-
-  form.addEventListener("submit", handleSubmit);
+  });
 })();

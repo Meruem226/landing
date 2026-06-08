@@ -133,7 +133,10 @@
       }
     } catch (err) {
       console.error("[play-tester]", err);
-      setFeedback("Connexion impossible. Vérifiez votre réseau et réessayez.", "error");
+      setFeedback(
+        "Impossible de joindre le serveur (accès refusé ou réseau). Réessayez dans un instant.",
+        "error"
+      );
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma demande';

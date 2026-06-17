@@ -4,7 +4,19 @@
 (function () {
   "use strict";
 
-  const config = window.PLAY_TESTER_CONFIG || {};
+  function resolveConfig() {
+    const fromScript = window.PLAY_TESTER_CONFIG || {};
+    const metaBase = document
+      .querySelector('meta[name="raaga-api-base"]')
+      ?.getAttribute("content")
+      ?.trim();
+    return {
+      API_URL: fromScript.API_URL || metaBase || "",
+      SIGNUP_PATH: fromScript.SIGNUP_PATH || "/api/public/play-tester-signup/",
+    };
+  }
+
+  const config = resolveConfig();
   const modal = document.getElementById("testerModal");
   const introPanel = document.getElementById("testerIntroPanel");
   const formPanel = document.getElementById("testerFormPanel");

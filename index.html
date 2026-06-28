@@ -269,79 +269,6 @@
     .foot-links a:hover { color: #7ab8f5; }
     .foot-bottom { padding: 18px 6%; background: #0c1220; border-top: 1px solid rgba(255,255,255,.04); text-align: center; }
     .foot-bottom p { color: rgba(255,255,255,.18); font-size: 12px; }
-
-    /* MODAL TESTEUR PLAY STORE */
-    .tester-modal-overlay {
-      position: fixed; inset: 0; z-index: 500;
-      background: rgba(12,18,32,.72); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-    }
-    .tester-modal-overlay[hidden] { display: none !important; }
-    .tester-modal {
-      background: #fff; border-radius: 20px; max-width: 480px; width: 100%;
-      box-shadow: 0 24px 64px rgba(0,0,0,.28); overflow: hidden;
-      animation: testerPop .25s ease;
-    }
-    @keyframes testerPop {
-      from { opacity: 0; transform: scale(.96) translateY(8px); }
-      to { opacity: 1; transform: none; }
-    }
-    .tester-modal-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 22px; border-bottom: 1px solid var(--border);
-      background: linear-gradient(135deg, #edf3ff, #fff);
-    }
-    .tester-modal-header h3 { font-size: 17px; font-weight: 800; color: var(--dark); }
-    .tester-modal-close {
-      border: none; background: transparent; font-size: 22px; line-height: 1;
-      cursor: pointer; color: var(--muted); padding: 4px 8px; border-radius: 8px;
-    }
-    .tester-modal-close:hover { background: var(--blue-dim); color: var(--blue); }
-    .tester-modal-body { padding: 22px; }
-    .tester-modal-body p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
-    .tester-modal-body p strong { color: var(--dark); }
-    .tester-info-box {
-      background: var(--blue-dim); border: 1px solid rgba(27,111,216,.15);
-      border-radius: 12px; padding: 14px 16px; margin: 16px 0;
-      font-size: 13px; color: var(--text); line-height: 1.55;
-    }
-    .tester-form-group { margin-bottom: 16px; text-align: left; }
-    .tester-form-group label {
-      display: block; font-size: 13px; font-weight: 700; color: var(--dark);
-      margin-bottom: 6px;
-    }
-    .tester-form-group input {
-      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
-      border-radius: 10px; font-size: 14px; font-family: inherit;
-    }
-    .tester-form-group input:focus { outline: none; border-color: var(--blue); }
-    .tester-form-group small { display: block; margin-top: 5px; font-size: 11px; color: var(--muted); }
-    .tester-feedback {
-      font-size: 13px; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px;
-    }
-    .tester-feedback.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
-    .tester-feedback[hidden] { display: none; }
-    .tester-modal-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-    .tester-btn-primary {
-      flex: 1; min-width: 140px; border: none; cursor: pointer;
-      background: var(--blue); color: #fff; font-weight: 700; font-size: 14px;
-      padding: 13px 18px; border-radius: 50px; font-family: inherit;
-      box-shadow: 0 6px 20px rgba(27,111,216,.28);
-    }
-    .tester-btn-primary:hover { background: var(--blue-light); }
-    .tester-btn-primary:disabled { opacity: .65; cursor: wait; }
-    .tester-btn-secondary {
-      border: 1.5px solid var(--border); background: #fff; color: var(--muted);
-      font-weight: 600; font-size: 14px; padding: 12px 16px; border-radius: 50px;
-      cursor: pointer; font-family: inherit;
-    }
-    .tester-success-icon {
-      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 16px;
-      background: rgba(34,197,94,.12); color: #16a34a;
-      display: flex; align-items: center; justify-content: center; font-size: 26px;
-    }
-    .tester-success-title { text-align: center; font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -363,17 +290,18 @@
       <li><a href="#comment">Comment ça marche</a></li>
       <li><a href="#avis">Avis</a></li>
     </ul>
-    <a href="#" class="nav-dl" data-tester-download role="button"><i class="fas fa-download"></i> Télécharger</a>
+    <a href="https://play.google.com/store/apps/details?id=com.raaga.market" class="nav-dl" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Télécharger</a>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
+      <span class="hero-badge"><i class="fab fa-google-play"></i> Disponible sur Google Play</span>
       <h1>Le commerce mobile<br/><span class="accent">au Burkina Faso.</span></h1>
       <p>Raaga connecte vendeurs et acheteurs dans un écosystème mobile 100 % burkinabè. Achetez et vendez partout au Burkina Faso, simplement depuis votre téléphone.</p>
       <div class="hero-btns">
         <a href="#apps" class="btn-solid"><i class="fas fa-store"></i> Découvrir Raaga</a>
-        <a href="#" class="btn-outline" data-tester-download role="button"><i class="fab fa-google-play"></i> Télécharger</a>
+        <a href="https://play.google.com/store/apps/details?id=com.raaga.market" class="btn-outline" target="_blank" rel="noopener noreferrer"><i class="fab fa-google-play"></i> Télécharger</a>
       </div>
     </div>
   </section>
@@ -528,35 +456,35 @@
     </div>
   </section>
 
-  <!-- CTA — Accès testeur Play Store -->
+  <!-- CTA — Téléchargement Play Store -->
   <section class="cta-sec" id="cta">
-    <span class="tag" style="margin-bottom:22px"><i class="fas fa-download"></i> Accès testeur</span>
-    <h2>Téléchargez Raaga</h2>
-    <p>L'application est disponible en <strong>mode testeur</strong> sur le Google Play Store. Nous avons besoin de votre e-mail Gmail pour vous y ajouter.</p>
+    <span class="tag" style="margin-bottom:22px"><i class="fas fa-download"></i> Téléchargement</span>
+    <h2>Téléchargez Raaga gratuitement</h2>
+    <p>L'application est disponible sur le <strong>Google Play Store</strong>. Installez-la en quelques secondes et commencez à acheter ou vendre.</p>
 
     <div class="cta-download-card">
       <ol class="cta-steps">
         <li>
           <span class="cta-step-num">1</span>
-          <span><strong>Inscrivez-vous</strong> avec votre e-mail Gmail et votre numéro WhatsApp.</span>
+          <span>Appuyez sur le bouton ci-dessous pour ouvrir le <strong>Play Store</strong>.</span>
         </li>
         <li>
           <span class="cta-step-num">2</span>
-          <span><strong>Recevez l'invitation</strong> testeur Play Store par e-mail (sous 24–48 h).</span>
+          <span>Appuyez sur <strong>Installer</strong> et attendez le téléchargement.</span>
         </li>
         <li>
           <span class="cta-step-num">3</span>
-          <span><strong>Installez Raaga</strong> depuis le Play Store avec le même compte Gmail.</span>
+          <span>Ouvrez Raaga, créez votre compte et c'est parti !</span>
         </li>
       </ol>
 
-      <button type="button" class="cta-group-btn" data-tester-download style="border:none;cursor:pointer;font-family:inherit;">
+      <a href="https://play.google.com/store/apps/details?id=com.raaga.market" class="cta-group-btn" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-google-play"></i>
-        Devenir testeur &amp; télécharger
-      </button>
+        Télécharger sur Google Play
+      </a>
 
       <p class="cta-note">
-        Gratuit · E-mail Gmail requis · Nous vous contactons sur WhatsApp si besoin
+        Gratuit · Android · Paiement Orange Money &amp; Moov
       </p>
     </div>
   </section>
@@ -574,7 +502,7 @@
       <div class="foot-col-title">Applications</div>
       <ul class="foot-links">
         <li><a href="#apps">Raaga Marché</a></li>
-        <li><a href="#" data-tester-download role="button">Télécharger</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=com.raaga.market" target="_blank" rel="noopener noreferrer">Télécharger</a></li>
       </ul>
     </div>
     <div>
@@ -591,65 +519,5 @@
     <p>© 2026 Raaga · Burkina Faso · Tous droits réservés</p>
   </div>
 
-  <!-- Modal inscription testeur Play Store -->
-  <div id="testerModal" class="tester-modal-overlay" hidden>
-    <div class="tester-modal" role="dialog" aria-labelledby="testerModalTitle" aria-modal="true">
-      <div class="tester-modal-header">
-        <h3 id="testerModalTitle"><i class="fab fa-google-play"></i> Accès testeur Raaga</h3>
-        <button type="button" class="tester-modal-close" data-tester-close aria-label="Fermer">&times;</button>
-      </div>
-
-      <div id="testerIntroPanel" class="tester-modal-body">
-        <p>Raaga est disponible en <strong>version testeur</strong> sur le Google Play Store.</p>
-        <div class="tester-info-box">
-          <i class="fas fa-info-circle" style="color:var(--blue)"></i>
-          Pour télécharger l'app, nous devons d'abord ajouter votre <strong>adresse Gmail</strong> à la liste des testeurs Google Play. Vous recevrez ensuite un e-mail d'invitation.
-        </div>
-        <p>Indiquez votre e-mail et votre WhatsApp pour que nous puissions vous contacter.</p>
-        <div class="tester-modal-actions">
-          <button type="button" class="tester-btn-primary" id="testerContinueBtn">Continuer</button>
-          <button type="button" class="tester-btn-secondary" data-tester-close>Plus tard</button>
-        </div>
-      </div>
-
-      <div id="testerFormPanel" class="tester-modal-body" hidden>
-        <div id="testerFeedback" class="tester-feedback" hidden></div>
-        <form id="testerSignupForm">
-          <div class="tester-form-group">
-            <label for="testerEmail">Adresse Gmail *</label>
-            <input type="email" id="testerEmail" name="email" required
-              placeholder="ex: monnom@gmail.com" autocomplete="email">
-            <small>Utilisez le même compte Google que sur votre téléphone Android.</small>
-          </div>
-          <div class="tester-form-group">
-            <label for="testerWhatsapp">Numéro WhatsApp *</label>
-            <input type="tel" id="testerWhatsapp" name="whatsapp" required
-              placeholder="ex: 22670123456" inputmode="numeric" autocomplete="tel">
-            <small>Indicatif pays inclus, sans espaces (ex: 226… pour le Burkina).</small>
-          </div>
-          <div class="tester-modal-actions">
-            <button type="submit" class="tester-btn-primary" id="testerSubmitBtn">
-              <i class="fas fa-paper-plane"></i> Envoyer ma demande
-            </button>
-            <button type="button" class="tester-btn-secondary" id="testerBackBtn">Retour</button>
-          </div>
-        </form>
-      </div>
-
-      <div id="testerSuccessPanel" class="tester-modal-body" hidden>
-        <div class="tester-success-icon"><i class="fas fa-check"></i></div>
-        <div class="tester-success-title">Demande enregistrée !</div>
-        <p id="testerSuccessMessage" style="text-align:center;margin-bottom:20px;">
-          Merci ! Nous vous ajouterons comme testeur sous 24–48 h. Surveillez votre boîte Gmail.
-        </p>
-        <div class="tester-modal-actions" style="justify-content:center;">
-          <button type="button" class="tester-btn-primary" data-tester-close style="flex:0 1 auto;min-width:160px;">Fermer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="js/play-tester-config.js"></script>
-  <script src="js/play-tester.js"></script>
 </body>
 </html>
